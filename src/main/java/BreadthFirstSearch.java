@@ -1,3 +1,4 @@
+import java.util.Queue;
 
 public class BreadthFirstSearch {
 
@@ -7,19 +8,30 @@ public class BreadthFirstSearch {
      * @return - an array containing the order of nodes traversed via a Breadth First Search.
      */
     public static int[] bfs(int[][] graph) {
-
+        CISQueue<Integer> queue = new CISQueue<Integer>(0);
+        int length = graph.length;
+        int[] visited = new int[length];
         // Create a Queue and add the first node (0) to it. Use your Queue class that you just created!
-
         // Create a visited array. This array will track whether we have visited a specific node.
-
         // Create a bfs path array and a bfs path index. This array will track the order that the nodes were visited.
-
+        int[] bfsPathArray = new int[length];
+        int bfsPathIndex = 0;
         // Add the first node (0) to the queue.
 
         // Record the first node (0) as visited.
-        
         // Time to traverse the graph! While the queue is not empty ...
-
+        while(!queue.isEmpty()){
+            int currentNode = queue.dequeue();
+            visited[currentNode] = 1;
+            bfsPathArray[bfsPathIndex] = currentNode;
+            bfsPathIndex++;
+            for(int i = 0; i < graph[currentNode].length; i++){
+                if(visited[graph[currentNode][i]] == 0){
+                    visited[graph[currentNode][i]] = 1;
+                    queue.enqueue(graph[currentNode][i]);
+                }
+            }
+        }
             // Dequeue (poll) the queue and store this value in a variable called currentNode.
 
             // Record this node as visited.
@@ -37,7 +49,6 @@ public class BreadthFirstSearch {
                     // Add the neighbour to the queue. 
 
         // Return bfs path.
-        
-        return null;
+        return bfsPathArray;
     }
 }
